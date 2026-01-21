@@ -116,7 +116,7 @@ export interface Address {
   /** Building number/identifier */
   building: string;
   /** Building number addition (e.g., apartment number) */
-  buildingNumber?: string;
+  buildingNumber?: number;
   /** Building number addition */
   buildingNumberAddition?: string;
   /** Region/state/province */
