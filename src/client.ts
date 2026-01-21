@@ -217,6 +217,12 @@ export class PostcodeEuClient {
     country: string,
     params: ValidateParams = {}
   ): Promise<ValidationResponse> {
+    if (!country) {
+      throw new ConfigurationError('country is required');
+    }
+    if (!country.match(/^[a-z]{3}$/)) {
+      throw new ConfigurationError('country must be a 3 letter ISO 3166-1 alpha-3 country code');
+    }
     const encodedCountry = encodeURIComponent(country.toLowerCase());
     const endpoint = `/international/v1/validate/${encodedCountry}`;
 
