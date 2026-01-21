@@ -6,7 +6,7 @@ A lightweight TypeScript client for the [Postcode.eu](https://www.postcode.eu/) 
 
 ## Features
 
-- Zero dependencies (uses native `fetch`)
+- Zero dependencies
 - Fully typed with TypeScript
 - Supports ESM and CommonJS
 - Node.js 18+
@@ -47,10 +47,6 @@ This package is designed for **backend use**. While autocomplete is typically a 
 
 1. **Keep API credentials secure** - Never expose your API key in browser code
 2. **Proxy requests** - Your frontend calls your backend, which calls Postcode.eu
-
-```
-Frontend → Your Backend API → Postcode.eu API
-```
 
 ## API Reference
 
@@ -95,7 +91,7 @@ const details = await client.getDetails(match.context, 'nld');
 
 ### `validate(country, params)`
 
-Validate and correct address data.
+Validate and geocode correct address data.
 
 ```typescript
 const result = await client.validate('nld', {
@@ -137,3 +133,7 @@ try {
 ## License
 
 MIT
+
+## Contributions
+
+Contributions welcome! Just submit a PR
