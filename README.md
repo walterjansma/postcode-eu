@@ -1,8 +1,8 @@
 # postcode-eu
 
-An unofficial, lightweight TypeScript client for the [Postcode.eu](https://www.postcode.eu/) International Address API.
+A lightweight TypeScript client for the [Postcode.eu](https://www.postcode.eu/) International Address API.
 
-> **Note:** This package is not affiliated with, endorsed by, or officially connected to Postcode.eu. You need your own [Postcode.eu API credentials](https://www.postcode.eu/) to use this package.
+> **Note:** This package is not affiliated with Postcode.eu. You need your own [Postcode.eu API credentials](https://www.postcode.eu/) to use this package.
 
 ## Features
 
