@@ -311,16 +311,29 @@ describe('PostcodeEuClient', () => {
       expect(result.matches[0].address?.locality).toBe('Amsterdam');
     });
 
-    it('should convert country code to lowercase', async () => {
-      fetchMock.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockValidResponse,
-      });
+    it('should throw ConfigurationError when country is empty', async () => {
+      await expect(client.validate('', { postcode: '1012PA' })).rejects.toThrow(ConfigurationError);
+      await expect(client.validate('', { postcode: '1012PA' })).rejects.toThrow('country is required');
+    });
 
-      await client.validate('NLD', { postcode: '1012PA' });
+    it('should throw ConfigurationError when country is not 3 lowercase letters', async () => {
+      // Uppercase should fail
+      await expect(client.validate('NLD', { postcode: '1012PA' })).rejects.toThrow(ConfigurationError);
+      await expect(client.validate('NLD', { postcode: '1012PA' })).rejects.toThrow(
+        'country must be a 3 letter ISO 3166-1 alpha-3 country code'
+      );
 
-      const calledUrl = fetchMock.mock.calls[0][0] as string;
-      expect(calledUrl).toContain('/international/v1/validate/nld');
+      // Too short
+      await expect(client.validate('nl', { postcode: '1012PA' })).rejects.toThrow(ConfigurationError);
+
+      // Too long
+      await expect(client.validate('nldd', { postcode: '1012PA' })).rejects.toThrow(ConfigurationError);
+
+      // Contains numbers
+      await expect(client.validate('nl1', { postcode: '1012PA' })).rejects.toThrow(ConfigurationError);
+
+      // Mixed case
+      await expect(client.validate('Nld', { postcode: '1012PA' })).rejects.toThrow(ConfigurationError);
     });
 
     it('should include all query parameters when provided', async () => {
